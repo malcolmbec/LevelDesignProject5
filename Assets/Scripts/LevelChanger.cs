@@ -12,7 +12,10 @@ public class LevelChanger : MonoBehaviour
     private void Awake() 
     {
         Collider collider = GetComponent<Collider>();
+
         collider.isTrigger = true;
+        ObjectToDeactivate.SetActive(true);
+        ObjectToActivate.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other) 

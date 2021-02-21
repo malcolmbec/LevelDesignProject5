@@ -5,6 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 public class Loot : MonoBehaviour
 {
+    private static float pickUpRange = 4f;
+
+    private static Transform playerTransform;
+
     private bool hovered = false;
 
     private Outline outline;
@@ -13,6 +17,11 @@ public class Loot : MonoBehaviour
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
+
+        if (!playerTransform)
+        {
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     private void Update() 
@@ -24,10 +33,13 @@ public class Loot : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter() 
+    private void OnMouseOver() 
     {
-        outline.enabled = true;
-        hovered = true;
+        if (Vector3.Distance(transform.position, playerTransform.position) <= pickUpRange)
+        {
+            outline.enabled = true;
+            hovered = true;
+        }
     }
     
     private void OnMouseExit() 
